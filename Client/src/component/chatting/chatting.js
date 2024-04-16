@@ -1,6 +1,10 @@
-import { Box, Dialog, Typography } from "@mui/material";
+import { Box, Dialog, Typography ,styled} from "@mui/material";
+import ChatMenu from "./chatMenu";
+import Emptychat from "./emptyChat";
+
 
 function Chatting() {
+
   const DialogStyle = {
     height: "90%",
     maxHeight: "100%",
@@ -10,17 +14,40 @@ function Chatting() {
     boxShadow: "none",
     overflow: "none",
     border: "1px solid black",
-    borderRedius: "0px",
+    borderRadius: "0px",
   };
 
+
+  const MainBox = styled(Box)({
+    display: 'flex'
+  });
+
+  const LeftBox = styled(Box)({
+    minWidth: 470
+  });
+
+  const RighttBox = styled(Box)({
+    width:'70%',
+    minWidth:300,
+    height:'100%',
+    borderLeft:'1px solid rbga(0,0,0,0.14)'
+  });
   return (
     <>
-      <Dialog open={true} PaperProps={{ sx: DialogStyle }} hideBackdrop={true}>
-        <Box>
-          <Box></Box>
+      <Dialog 
+      open={true}
+       PaperProps={{ sx: DialogStyle }} 
+       hideBackdrop={true}
+       maxWidth={'md'}>
+        <MainBox> 
+          <LeftBox>
+            <ChatMenu/>
+          </LeftBox>
 
-          <Box></Box>
-        </Box>
+          <RighttBox>
+          <Emptychat/>
+          </RighttBox>
+        </MainBox>
       </Dialog>
     </>
   );
