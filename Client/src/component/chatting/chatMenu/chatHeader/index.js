@@ -5,36 +5,44 @@ import styled from "@emotion/styled";
 import ChatIcon from "@mui/icons-material/Chat";
 import LoopIcon from "@mui/icons-material/Loop";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import HeaderMenu from "./HeaderMenu";
 
 function ChatHeader() {
   const { state } = useContext(AccountContex);
+
   const MainBox = styled(Box)({
-    height: "44px",
-    background: "whitesmoke",
+    height: "40px",
+    background: "#ededed",
+    display: "flex",
     padding: "8px 16px",
-    display:'flex',
-    alignItems:'center',
+    alignItems: "center",
   });
 
   const IconBox = styled(Box)({
-    marginLeft:'auto',
-    // justifyContent:'end'
-    '& > * ':{
-        marginLeft:'3px',
-        padding:'8px',
-        color:'#000'
+    display: "flex",
+    alignItems: "center",
+    marginLeft: "auto",
+    "& > * ": {
+      marginLeft: "2px",
+      padding: "8px",
+      color: "#000",
     },
-    // '& :first-child':{
-    //     fontSize:'22px',
-    //     marginLeft:'8px',
-    //     marginTop:'3px',
-    // },
-  })
+    "& :first-child": {
+      fontSize: "22px",
+      marginRight: "8px",
+      marginTop: "3px",
+    },
+  });
 
+  const Image = styled("img")({
+    height: 40,
+    width: 40,
+    borderRadius: "50%",
+  });
   return (
     <>
       <MainBox>
-        <img
+        <Image
           src={state.picture}
           alt="dp"
           height={40}
@@ -42,9 +50,10 @@ function ChatHeader() {
           style={{ borderRadius: "50%" }}
         />
         <IconBox>
-        <LoopIcon size="small" color="action" />
-        <ChatIcon size="small" color="action" />
-        <MoreVertIcon size="small" color="action" />
+          <LoopIcon size="small" color="action" />
+          <ChatIcon size="small" color="action" />
+          <HeaderMenu />
+          {/* <MoreVertIcon size="small" color="action" /> */}
         </IconBox>
       </MainBox>
     </>
