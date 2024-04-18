@@ -1,17 +1,21 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import {Menu , MenuItem}from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
+import styled from "@emotion/styled";
 
+const MenuOption = styled(MenuItem)({
+  fontSize: "14px",
+  padding: "15px 60px 5px 24px",
+  color: "#4A4A4A",
+});
 function HeaderMenu() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(null);
   const handleClick = (event) => {
     setOpen(event.currentTarget);
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpen(null);
   };
 
   return (
@@ -30,10 +34,15 @@ function HeaderMenu() {
         anchorEl={open}
         open={open}
         onClose={handleClose}
-        keepMounted={true}
+        keepMounted
         getContentAnchorE1={null}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
