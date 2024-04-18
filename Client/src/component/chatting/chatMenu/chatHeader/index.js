@@ -1,18 +1,25 @@
 import { Box, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AccountContex } from "../../../../contex";
 import styled from "@emotion/styled";
 import ChatIcon from "@mui/icons-material/Chat";
 import LoopIcon from "@mui/icons-material/Loop";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import HeaderMenu from "./HeaderMenu";
+import ProfileBox from "../../../saveProfileBox";
 
 function ChatHeader() {
   const { state } = useContext(AccountContex);
 
+  const [openProfileBox,setOpenProfileBox]=useState(false);
+
+  const handleOpenBox =()=>{
+    setOpenProfileBox(true);
+  }
+
+
   const MainBox = styled(Box)({
     height: "40px",
-    background: "#ededed",
+    background:"#2196f3",
     display: "flex",
     padding: "8px 16px",
     alignItems: "center",
@@ -48,13 +55,14 @@ function ChatHeader() {
           height={40}
           width={40}
           style={{ borderRadius: "50%" }}
+          onClick={()=>handleOpenBox()}
         />
         <IconBox>
           <LoopIcon size="small" color="action" />
           <ChatIcon size="small" color="action" />
-          <HeaderMenu />
-          {/* <MoreVertIcon size="small" color="action" /> */}
+          <HeaderMenu  setOpenProfileBox={setOpenProfileBox}/>
         </IconBox>
+        <ProfileBox openProfileBox={openProfileBox} setOpenProfileBox={setOpenProfileBox}/>
       </MainBox>
     </>
   );

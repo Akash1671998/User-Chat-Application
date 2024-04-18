@@ -9,7 +9,7 @@ const MenuOption = styled(MenuItem)({
   padding: "15px 60px 5px 24px",
   color: "#4A4A4A",
 });
-function HeaderMenu() {
+function HeaderMenu({setOpenProfileBox}) {
   const [open, setOpen] = useState(null);
   const handleClick = (event) => {
     setOpen(event.currentTarget);
@@ -17,6 +17,10 @@ function HeaderMenu() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const handleOpenProfileBox =()=>{
+    setOpenProfileBox(true)
+  }
 
   return (
     <div>
@@ -45,7 +49,7 @@ function HeaderMenu() {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={()=>handleOpenProfileBox()}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
