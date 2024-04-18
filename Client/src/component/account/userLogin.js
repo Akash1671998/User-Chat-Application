@@ -7,6 +7,7 @@ import { qrCodeImage } from "../../images/image";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import Chatting from "../chatting/chatting";
+import { addUser } from "../../service/api";
 
 const MainBox = styled(Box)({
   display: "flex",
@@ -45,9 +46,10 @@ function UserLogin() {
 
     const {setState}=useContext(AccountContex);
 
-  const SuccessLogin = (res) => {
+  const SuccessLogin = async(res) => {
   const decode =  jwtDecode(res.credential);
-   setState(decode)
+   setState(decode);
+   await addUser(decode);
   };
 
   const LoginError = () => {
@@ -85,6 +87,7 @@ function UserLogin() {
               }}
             >
               <GoogleLogin onSuccess={SuccessLogin} onError={LoginError} />
+          
             </Box>
           </Box>
         </MainBox>
