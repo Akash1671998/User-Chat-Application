@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-const URL = 'https://localhost:8080';
+const URL = 'http://localhost:8080';
 
 export  const addUser = async(data)=>{
     try {

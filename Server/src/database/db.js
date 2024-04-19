@@ -1,16 +1,8 @@
 
 const mongoose = require('mongoose');
-
-
-const Connection = () => {
-    const DB_URI="mongodb://localhost:27017/chat";
-    try {
-        mongoose.connect(DB_URI, { useNewUrlParser: true });
-        mongoose.set('strictQuery', false);
-        console.log('Database connected sucessfully');
-    } catch (error) {
-        console.log('Error while connecting with the database ', error.message)
-    }
-}
-
-module.exports ={Connection};
+const mongoDB = 'mongodb://localhost:27017/communication';
+mongoose.connect(mongoDB, {useNewUrlParser: true ,useUnifiedTopology:true}).then(()=>{
+    console.log("Connection Successfully");
+}).catch((error)=>{
+    console.log("Connnection Faild........",error)
+})
