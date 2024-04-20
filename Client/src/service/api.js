@@ -10,3 +10,14 @@ await axios.post(`${URL}/add` ,data);
     }
 }
 
+
+export  const getChatUser = async()=>{
+    try {
+ let response = await axios.get(`${URL}/chatusers` ,);
+ return response.data.data;
+    } catch(error){
+        console.log("Error",error);
+    }
+}
+
+

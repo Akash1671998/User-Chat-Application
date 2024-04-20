@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import ChatHeader from "./chatHeader";
 import ChatSearch from "./chatSearch";
+import Conversations from "./chatHeader/Conversationa";
 
 function ChatMenu() {
   return (
@@ -8,6 +9,7 @@ function ChatMenu() {
       <Box>
         <ChatHeader />
         <ChatSearch />
+        <Conversations/>
       </Box>
     </>
   );
