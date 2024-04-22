@@ -20,4 +20,13 @@ export  const getChatUser = async()=>{
     }
 }
 
+export  const ConversationMessage = async(data)=>{
+    try {
+ let response = await axios.post(`${URL}/conversation/add` ,data);
+ return response.data.data;
+    } catch(error){
+        console.log("Error",error);
+    }
+}
+
 

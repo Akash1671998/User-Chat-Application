@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import { AccountContex } from "../../contex"
 import { Box, Dialog, Typography, styled } from "@mui/material";
 import ChatMenu from "./chatMenu";
 import Emptychat from "./emptyChat";
 import ChatBox from "./chatBox/ChatBox";
 
+
+
 function Chatting() {
+  const {person}=useContext(AccountContex);
   const DialogStyle = {
     height: "90%",
     maxHeight: "100%",
@@ -44,8 +49,7 @@ function Chatting() {
           </LeftBox>
 
           <RighttBox>
-            {/* <Emptychat/> */}
-            <ChatBox />
+            {Object.keys(person).length ? <ChatBox /> : <Emptychat/>}
           </RighttBox>
         </MainBox>
       </Dialog>

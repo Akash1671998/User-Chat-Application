@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
+import { useContext } from "react";
+import { AccountContex } from "../../../contex";
+import SearchIcon from "@mui/icons-material/Search";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-function ChatBoxHeader() {
+function ChatBoxHeader({person}) {
+  const { state } = useContext(AccountContex);
+  console.log("PPPPPPPPPPPPPPPPPPPPPP",person.name)
   const Header = styled(Box)({
     height: "44px",
     background: "#ededed",
@@ -26,15 +32,28 @@ function ChatBoxHeader() {
     },
   });
 
+  const Name = styled(Typography)`
+    marginleft: 12px !important;
+  `;
+
+  const UserStatus = styled(Typography)({
+    fontSize: "12px !important",
+    color: "#000000",
+    marginLeft: "12px !important",
+  });
+
   return (
     <>
       <Header>
-        <Image src={""} alt="display picture" />
+        <Image src={person.picture} alt="dp" />
         <Box>
-          <Typography> Name </Typography>
-          <Typography> Online Status </Typography>
+          <Name>{person.name}</Name>
+          <UserStatus>Online</UserStatus>
         </Box>
-        <RightContainer></RightContainer>
+        <RightContainer>
+          <SearchIcon />
+          <MoreVertIcon />
+        </RightContainer>
       </Header>
     </>
   );

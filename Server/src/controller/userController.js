@@ -1,5 +1,7 @@
 const { User } = require("../model/user");
 
+console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUU",User)
+
 const addUser = async (request, response) => {
   try {
     let existingUser = await User.findOne({ sub: request.body.sub });
@@ -32,6 +34,24 @@ const addUser = async (request, response) => {
 };
 
 const getChatUsers = async (request, response) => {
+    try {
+      const users = await User.find({});
+      return response.status(200).json({
+        status: "Ok",
+        message: "Chat Users Fetched Successfully",
+        data: users,
+      });
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({
+        status: "Fail",
+        message: "Failed To Fetch Chat Users",
+        messageDetails: error.message,
+      });
+    }
+  };
+
+  const getConversationMessage = async (request, response) => {
     try {
       const users = await User.find({});
       return response.status(200).json({

@@ -1,7 +1,16 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
+import { Conversation, ConversationMessage, getChatUser } from "../../../../../service/api";
+import { useContext } from "react";
+import { AccountContex } from "../../../../../contex";
 
 function ChatConvesationUser({ user }) {
+  const {state ,setPerson}=useContext(AccountContex);
+
+
+  let senderId =user?.sub;
+  let receiverId = state.sub;
+
   const MainBox = styled(Box)({
     height: "45px",
     display: "flex",
@@ -16,9 +25,14 @@ function ChatConvesationUser({ user }) {
     borderRadius: "50%",
     padding: "0 14px",
   });
+
+  const getUser = async ()=>{
+    setPerson(user)
+await ConversationMessage ({senderId:senderId , receiverId:receiverId});
+  } 
   return (
     <>
-      <MainBox>
+      <MainBox onClick={()=>getUser()}>
         <Box>{<Image src={user.picture} alt="dp" />}</Box>
 
         <Box>
