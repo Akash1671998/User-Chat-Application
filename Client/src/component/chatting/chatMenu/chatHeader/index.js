@@ -8,7 +8,7 @@ import HeaderMenu from "./HeaderMenu";
 import ProfileBox from "../../../saveProfileBox";
 
 function ChatHeader() {
-  const { state } = useContext(AccountContex);
+  const { loginuser } = useContext(AccountContex);
 
   const [openProfileBox,setOpenProfileBox]=useState(false);
 
@@ -50,7 +50,7 @@ function ChatHeader() {
     <>
       <MainBox>
         <Image
-          src={state.picture}
+          src={loginuser.picture}
           alt="dp"
           height={40}
           width={40}

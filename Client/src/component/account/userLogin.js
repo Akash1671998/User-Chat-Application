@@ -24,13 +24,13 @@ const Title = styled(Typography)({
 });
 const DialogStyle = {
   height: "100%",
-//   maxHeight: "100%",
+  //   maxHeight: "100%",
   width: "60%",
   maxWidth: "100%",
   marginTop: "12px",
   boxShadow: "none",
   overflow: "none",
-  border:'1px solid black'
+  border: "1px solid black",
 };
 
 const StyleList = styled(List)({
@@ -43,18 +43,15 @@ const StyleList = styled(List)({
   },
 });
 function UserLogin() {
+  const { setLoginUser } = useContext(AccountContex);
 
-    const {setState}=useContext(AccountContex);
-
-  const SuccessLogin = async(res) => {
-  const decode =  jwtDecode(res.credential);
-   setState(decode);
-   await addUser(decode);
+  const SuccessLogin = async (res) => {
+    const decode = jwtDecode(res.credential);
+    setLoginUser(decode);
+    await addUser(decode);
   };
 
-  const LoginError = () => {
-
-  };
+  const LoginError = () => {};
 
   return (
     <>
@@ -87,7 +84,6 @@ function UserLogin() {
               }}
             >
               <GoogleLogin onSuccess={SuccessLogin} onError={LoginError} />
-          
             </Box>
           </Box>
         </MainBox>

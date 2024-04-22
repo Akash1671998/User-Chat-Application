@@ -5,11 +5,11 @@ import { useContext } from "react";
 import { AccountContex } from "../../../../../contex";
 
 function ChatConvesationUser({ user }) {
-  const {state ,setPerson}=useContext(AccountContex);
+  const {loginuser ,setPerson}=useContext(AccountContex);
 
 
   let senderId =user?.sub;
-  let receiverId = state.sub;
+  let receiverId = loginuser.sub;
 
   const MainBox = styled(Box)({
     height: "45px",

@@ -7,7 +7,7 @@ import { AccountContex } from "../../../../contex";
 import styled from "@emotion/styled";
 
 function Conversations() {
-  const { state } = useContext(AccountContex);
+  const { loginuser } = useContext(AccountContex);
   const [users, setUsers] = useState([]);
 
   const Component = styled(Box)({
@@ -32,7 +32,7 @@ function Conversations() {
     <Component>
       {users.map(
         (user) =>
-          user.sub !== state.sub && (
+          user.sub !== loginuser.sub && (
             <>
               <ChatConvesationUser user={user} />
               <Divider

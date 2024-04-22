@@ -27,10 +27,10 @@ const Header = styled(AppBar)({
 });
 
 function Message() {
-  const { state } = useContext(AccountContex);
+  const { loginuser } = useContext(AccountContex);
   return (
     <MainBox sx={{ flexGrow: 1 }}>
-      {state ? (
+      {loginuser ? (
         <>
           <ChatHeader position="static">
             <Toolbar variant="dense">
