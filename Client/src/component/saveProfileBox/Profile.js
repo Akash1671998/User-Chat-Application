@@ -54,15 +54,15 @@ const AboutBox = styled(Box)({
     },
 })
 function Profile({}) {
-  const { state } = useContext(AccountContex);
+  const { loginuser } = useContext(AccountContex);
   return (
     <>
       <ImageBox>
-        <Image src={state.picture} alt="dp" style={{ borderRadius: "50%" }} />
+        <Image src={loginuser.picture} alt="dp" style={{ borderRadius: "50%" }} />
       </ImageBox>
       <ProfileName>
         <Typography>Your Name</Typography>
-        <Typography>{state.name}</Typography>
+        <Typography>{loginuser.name}</Typography>
       </ProfileName>
       <DiscriptionBox>
         <Typography>
