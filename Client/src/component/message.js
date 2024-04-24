@@ -18,7 +18,7 @@ const MainBox = styled(Box)({
 const ChatHeader = styled(AppBar)({
     height: "120px",
     boxShadow: "none",
-    backgroundColor:'#00A884',
+    backgroundColor:'#1976d2',
   });
 const Header = styled(AppBar)({
   height: "220px",
@@ -28,6 +28,8 @@ const Header = styled(AppBar)({
 
 function Message() {
   const { loginuser } = useContext(AccountContex);
+
+
   return (
     <MainBox sx={{ flexGrow: 1 }}>
       {loginuser ? (

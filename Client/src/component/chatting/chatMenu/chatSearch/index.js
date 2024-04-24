@@ -2,26 +2,27 @@ import { Box, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import styled from "@emotion/styled";
+import { useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 
-function ChatSearch() {
+function ChatSearch({ text, setText }) {
   const MainBox = styled(Box)({
     background: "#fff",
     height: "45px",
     borderBottom: "1px solid #F2F2F2",
-    display:'flex',
-    alignItems:'center',
-    marginTop:'10px'
+    display: "flex",
+    alignItems: "center",
+    marginTop: "10px",
   });
 
   const SecondBox = styled(Box)({
     display: "flex",
     alignItem: "center",
-    backgroundColor:'#f0f2f5',
-    position:'relative',
-    margin:'0 13px',
-    width:'100%',
-    borderRadius:'10px',
-
+    backgroundColor: "#f0f2f5",
+    position: "relative",
+    margin: "0 13px",
+    width: "100%",
+    borderRadius: "10px",
   });
 
   const SearchIcondBox = styled(Box)({
@@ -34,10 +35,27 @@ function ChatSearch() {
   const InputeField = styled(InputBase)({
     width: "100%",
     padding: "16px",
-    height:'50px',
-    paddingLeft:'55px',
-    fontSize:'14px',
+    height: "50px",
+    paddingLeft: "55px",
+    fontSize: "14px",
   });
+
+  const Closed = styled(Box)({
+    display: "flex",
+    alignItem: "center",
+    position: "relative",
+    color: "red",
+  });
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    e.target.name = value;
+    setText(value);
+  };
+
+  const hanleClear = () => {
+    setText("");
+  };
+
   return (
     <>
       <MainBox>
@@ -45,8 +63,16 @@ function ChatSearch() {
           <SearchIcondBox>
             <SearchIcon />
           </SearchIcondBox>
-          <InputeField placeholder="Search or Start New Chat" />
+          <InputeField
+            placeholder="Search or start new chat"
+            value={text}
+            name="search"
+            onChange={(e) => handleSearch(e)}
+          />
         </SecondBox>
+        <Closed>
+          {text && <ClearIcon fontSize="small" onClick={hanleClear} />}
+        </Closed>
       </MainBox>
     </>
   );

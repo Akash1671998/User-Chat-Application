@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AccountContex } from "../../../../contex";
 import styled from "@emotion/styled";
 
-function Conversations() {
+function Conversations({text}) {
   const { loginuser } = useContext(AccountContex);
   const [users, setUsers] = useState([]);
 
@@ -19,14 +19,15 @@ function Conversations() {
     const getUsers = async () => {
       try {
         const response = await getChatUser();
-        setUsers(response);
+        let finterData = response.filter(item=>item.name.toLowerCase().includes(text.toLowerCase()))
+        setUsers(finterData);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
 
     getUsers();
-  }, []);
+  }, [text]);
 
   return (
     <Component>

@@ -19,7 +19,7 @@ function ChatHeader() {
 
   const MainBox = styled(Box)({
     height: "40px",
-    background:"#2196f3",
+    background:"#1976d2",
     display: "flex",
     padding: "8px 16px",
     alignItems: "center",

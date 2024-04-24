@@ -1,13 +1,24 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AccountContex } from "../../../contex";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 function ChatBoxHeader({person}) {
-  const { state } = useContext(AccountContex);
-  console.log("PPPPPPPPPPPPPPPPPPPPPP",person.name)
+  const { loginuser } = useContext(AccountContex);
+  const [userStatus, setUserStatus] = useState("Offline");
+
+
+  useEffect(() => {
+    if (loginuser) {
+      setUserStatus("Online");
+    } else {
+      setUserStatus("Offline");
+    }
+  }, [loginuser]);
+
+
   const Header = styled(Box)({
     height: "44px",
     background: "#ededed",
@@ -48,7 +59,7 @@ function ChatBoxHeader({person}) {
         <Image src={person.picture} alt="dp" />
         <Box>
           <Name>{person.name}</Name>
-          <UserStatus>Online</UserStatus>
+          <UserStatus>{userStatus}</UserStatus>
         </Box>
         <RightContainer>
           <SearchIcon />
