@@ -1,16 +1,10 @@
-const {ChatConversation}= require('../model/conversation');
 
+const { ChatConversation } = require("../model/conversation");
 
-console.log("OOOOOOOOOOOOOOOOOOO",ChatConversation)
-
-const getConversationMessage = async (request, response) => {
+const ConversationMessage = async (request, response) => {
   try {
     let senderId = request.body.senderId;
     let receiverId = request.body.receiverId;
-
-    console.log("senderIDDDDDDDDDDDDDDD",senderId);
-    console.log("receiverrrrrrrrrrrrrrrrrrrr",receiverId)
-
     if (!senderId || !receiverId) {
       return response.status(400).json({
         status: "Fail",
@@ -18,11 +12,13 @@ const getConversationMessage = async (request, response) => {
       });
     }
 
-    const exist = await ChatConversation.findOne({ members: { $all: [receiverId, senderId]  }})
-    
-    if(exist) {
-        response.status(200).json('conversation already exists');
-        return;
+    const exist = await ChatConversation.findOne({
+      members: { $all: [receiverId, senderId] },
+    });
+
+    if (exist) {
+      response.status(200).json("conversation already exists");
+      return;
     }
 
     const newConversation = new ChatConversation({
@@ -44,4 +40,27 @@ const getConversationMessage = async (request, response) => {
   }
 };
 
-module.exports = { getConversationMessage };
+ const getConversationMessage = async (request,response) => {
+  try {
+    let senderId = request.body.senderId;
+    let receiverId = request.body.receiverId;
+    const exist = await ChatConversation.findOne({
+      members: { $all: [receiverId, senderId] },
+    });
+    response.status(200).json({
+      status: "Ok",
+      message: "data getting successfully",
+      messageDetails: "",
+      data: exist,
+    });
+  } catch (error) {
+    console.log("getConversationMessage", error);
+    response.status(500).json({
+      status: "ok",
+      message: "Faild to get data",
+      messageDetails: "",
+    });
+  }
+};
+
+module.exports = { ConversationMessage,getConversationMessage};
