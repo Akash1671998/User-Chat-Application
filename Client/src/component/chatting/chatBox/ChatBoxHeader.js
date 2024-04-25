@@ -4,11 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { AccountContex } from "../../../contex";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ChatBoxMoreMenu from "./ChatBoxMoreMenu";
 
-function ChatBoxHeader({person}) {
+function ChatBoxHeader({ person }) {
   const { loginuser } = useContext(AccountContex);
   const [userStatus, setUserStatus] = useState("Offline");
-
 
   useEffect(() => {
     if (loginuser) {
@@ -17,7 +17,6 @@ function ChatBoxHeader({person}) {
       setUserStatus("Offline");
     }
   }, [loginuser]);
-
 
   const Header = styled(Box)({
     height: "44px",
@@ -35,6 +34,9 @@ function ChatBoxHeader({person}) {
   });
 
   const RightContainer = styled(Box)({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     marginLeft: "auto",
     "& > svg": {
       padding: "8px",
@@ -63,7 +65,8 @@ function ChatBoxHeader({person}) {
         </Box>
         <RightContainer>
           <SearchIcon />
-          <MoreVertIcon />
+          {/* <MoreVertIcon /> */}
+          <ChatBoxMoreMenu />
         </RightContainer>
       </Header>
     </>

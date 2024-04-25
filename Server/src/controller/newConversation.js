@@ -1,4 +1,3 @@
-
 const { ChatConversation } = require("../model/conversation");
 
 const ConversationMessage = async (request, response) => {
@@ -40,12 +39,12 @@ const ConversationMessage = async (request, response) => {
   }
 };
 
- const getConversationMessage = async (request,response) => {
+const getConversationMessage = async (request, response) => {
   try {
-    let senderId = request.body.senderId;
-    let receiverId = request.body.receiverId;
+    const { senderId, receiverId } = request.body;
+    console.log(senderId,"DDDDDDDDDDDDDDDDDDDD", receiverId);
     const exist = await ChatConversation.findOne({
-      members: { $all: [receiverId, senderId] },
+      members: { $all: [senderId, receiverId] },
     });
     response.status(200).json({
       status: "Ok",
@@ -53,6 +52,7 @@ const ConversationMessage = async (request, response) => {
       messageDetails: "",
       data: exist,
     });
+   
   } catch (error) {
     console.log("getConversationMessage", error);
     response.status(500).json({
@@ -63,4 +63,4 @@ const ConversationMessage = async (request, response) => {
   }
 };
 
-module.exports = { ConversationMessage,getConversationMessage};
+module.exports = { ConversationMessage, getConversationMessage };

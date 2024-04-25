@@ -19,7 +19,7 @@ function ChatBox() {
 
   };
 
-  console.log("JJJJJJJJJJJJJJ10",conversesion)
+  console.log("JJJJJJJJJJJJJJ10aaaaaaaaaaaaaaaaaaaaaaaa",conversesion)
 
   useEffect(() => {
     getConversationDetails();

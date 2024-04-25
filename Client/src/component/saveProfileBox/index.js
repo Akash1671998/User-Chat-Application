@@ -15,7 +15,8 @@ function ProfileBox({ openProfileBox, setOpenProfileBox }) {
 
   const DrawerHeader = styled(Box)({
     display: "flex",
-    background: "#008069",
+    // background: "#008069",
+    backgroundColor:'#1976d2',
     height: "105px",
     // color:'#FFFFFF',
     "& > svg , & > p ": {
