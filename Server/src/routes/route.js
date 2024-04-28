@@ -9,7 +9,7 @@ route.get('/chatusers', userController.getChatUsers);
 
 
 route.post('/conversation/add', ConversationMessage);
-route.get('/conversation/get', getConversationMessage);
+route.post('/conversation/get', getConversationMessage);
 
 module.exports = route;
 

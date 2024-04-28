@@ -30,7 +30,7 @@ export const ConversationMessage = async (data) => {
 
 export const getConversationMessage = async (data) => {
   try {
-    let response = await axios.get(`${URL}/conversation/get`, data);
+    let response = await axios.post(`${URL}/conversation/get`, data);
     console.log("KKKKKKKKKKKKKKKKKKKK",response)
     return response.data;
    
