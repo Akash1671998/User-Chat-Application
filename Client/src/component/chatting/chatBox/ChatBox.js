@@ -8,7 +8,7 @@ import { getConversationMessage } from "../../../service/api";
 function ChatBox() {
   const { loginuser, person } = useContext(AccountContex);
 
-  const [conversesion,setConversesion]=useState([]);
+  const [conversesion,setConversesion]=useState({});
 
   const getConversationDetails = async () => {
     let data = await getConversationMessage({
@@ -18,9 +18,6 @@ function ChatBox() {
     setConversesion(data);
 
   };
-
-  console.log("JJJJJJJJJJJJJJ10aaaaaaaaaaaaaaaaaaaaaaaa",conversesion)
-
   useEffect(() => {
     getConversationDetails();
   }, [person.sub]);

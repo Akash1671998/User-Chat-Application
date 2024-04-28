@@ -42,7 +42,6 @@ const ConversationMessage = async (request, response) => {
 const getConversationMessage = async (request, response) => {
   try {
     const { senderId, receiverId } = request.body;
-    console.log(senderId,"DDDDDDDDDDDDDDDDDDDD", receiverId);
     const exist = await ChatConversation.findOne({
       members: { $all: [senderId, receiverId] },
     });

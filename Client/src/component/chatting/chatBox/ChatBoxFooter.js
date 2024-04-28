@@ -37,11 +37,11 @@ const AttachFile = styled(AttachFileIcon)({
   transform: "rotate(40deg)",
 });
 
-function ChatBoxFooter({KeyPress,message,setMessage}) {
+function ChatBoxFooter({KeyPress,textmessage,setTextMessage}) {
 
 
   const handleMessage = (e) => {
-    setMessage(e.target.value);
+    setTextMessage(e.target.value);
   };
 
   return (
@@ -53,7 +53,7 @@ function ChatBoxFooter({KeyPress,message,setMessage}) {
         <InputField
             placeholder="Type a message"
             id="message"
-            value={message}
+            value={textmessage}
             onChange={handleMessage}
             onKeyPress={(e) => KeyPress(e)}
           />

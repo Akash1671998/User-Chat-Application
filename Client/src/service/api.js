@@ -31,9 +31,27 @@ export const ConversationMessage = async (data) => {
 export const getConversationMessage = async (data) => {
   try {
     let response = await axios.post(`${URL}/conversation/get`, data);
-    console.log("KKKKKKKKKKKKKKKKKKKK",response)
-    return response.data;
+    return response.data.data;
    
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+
+export const UserMessage = async (data) => {
+  try {
+    let response = await axios.post(`${URL}/message/add`, data);
+  } catch (error) {
+    console.log("Error While Message Api ", error.message);
+  }
+};
+
+export const getUserMessage = async (data) => {
+  console.log("////////////////////",data)
+  try {
+    let response = await axios.get(`${URL}/message/get/${data}`);
+    return response.data.data;
   } catch (error) {
     console.log("Error", error);
   }
