@@ -48,7 +48,6 @@ export const UserMessage = async (data) => {
 };
 
 export const getUserMessage = async (data) => {
-  console.log("////////////////////",data)
   try {
     let response = await axios.get(`${URL}/message/get/${data}`);
     return response.data.data;

@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
 import ChatBoxFooter from "./ChatBoxFooter";
 import { Box } from "@mui/material";
-import transparentChat from "../../../images/static/transparentChat.jpg";
+// import transparentChat from "../../../images/static/transparentChat.jpg";
 import { useContext, useEffect, useState } from "react";
 import { AccountContex } from "../../../contex";
 import { UserMessage, getUserMessage } from "../../../service/api";
+import ShowUserMessage from "./ShowMessage";
 
 const MainBox = styled(Box)`
-  background-image: url(${transparentChat});
+  background-image: url(${""});
   background-size: 40%;
 `;
 const Component = styled(Box)`
@@ -18,8 +19,9 @@ const Component = styled(Box)`
 function ChatBoxMessage({ person, conversesion }) {
   const { loginuser } = useContext(AccountContex);
   const [textmessage, setTextMessage] = useState("");
+  const [showMessage, setShowMessage] = useState([]);
 
-  const KeyPress =async (e) => {
+  const KeyPress = async (e) => {
     let code = e.key || e.which;
     if (code === "Enter") {
       let newMessage = {
@@ -28,33 +30,36 @@ function ChatBoxMessage({ person, conversesion }) {
         conversationId: conversesion._id,
         textmessage: textmessage,
       };
-      const  data = await  UserMessage(newMessage);
-      setTextMessage('');
+      const data = await UserMessage(newMessage);
+      setTextMessage("");
     }
   };
-
 
   useEffect(() => {
     const getMessage = async () => {
       if (conversesion && conversesion._id) {
         let Id = conversesion._id;
-        console.log("Conversation ID:", Id);
         try {
           let data = await getUserMessage(Id);
-          console.log("User messages:", data);
+          setShowMessage(data);
         } catch (error) {
           console.error("Error fetching messages:", error);
         }
-      } else {
-        console.error("Conversation ID is undefined");
       }
-    }
+    };
     getMessage();
   }, [person.sub, conversesion]);
+
   return (
     <>
       <MainBox>
-        <Component>Chat Box Message Component</Component>
+        <Component>
+          {showMessage &&
+            showMessage.map((data) => {
+              console.log(data);
+              return <ShowUserMessage key={data.id} data={data} />;
+            })}
+        </Component>
         <ChatBoxFooter
           KeyPress={KeyPress}
           textmessage={textmessage}

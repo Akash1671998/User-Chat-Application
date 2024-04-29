@@ -35,7 +35,7 @@ const getUserMessage = async (request, response) => {
   try {
     const messages = await Message.find({ conversationId: request.params.id });
     if (messages.length === 0) {
-      return response.status(200).json({
+      return response.status(200).json({ 
         status: "Ok",
         message: "No messages found for This User",
         messageDetails: "",
