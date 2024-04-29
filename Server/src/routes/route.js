@@ -13,7 +13,8 @@ route.post('/conversation/add', ConversationMessage);
 route.post('/conversation/get', getConversationMessage);
 
 route.post('/message/add', UserNewMessage);
-route.get('/message/get:id', getUserMessage);
+route.get('/message/get/:id', getUserMessage);
+
 
 module.exports = route;
 
