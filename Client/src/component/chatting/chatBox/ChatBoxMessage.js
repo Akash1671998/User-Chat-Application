@@ -19,6 +19,7 @@ function ChatBoxMessage({ person, conversesion }) {
   const { loginuser } = useContext(AccountContex);
   const [textmessage, setTextMessage] = useState("");
   const [showMessage, setShowMessage] = useState([]);
+  const [mesagestatus,setMessageStatus]=useState(false)
 
   const KeyPress = async (e) => {
     let code = e.key || e.which;
@@ -31,6 +32,7 @@ function ChatBoxMessage({ person, conversesion }) {
       };
       const data = await UserMessage(newMessage);
       setTextMessage("");
+      setMessageStatus(prev=>!prev)
     }
   };
 
@@ -47,7 +49,7 @@ function ChatBoxMessage({ person, conversesion }) {
       }
     };
     getMessage();
-  }, [person.sub, conversesion]);
+  }, [person.sub, conversesion._id,mesagestatus]);
 
   return (
     <>
