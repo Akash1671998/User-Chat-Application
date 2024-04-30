@@ -13,27 +13,21 @@ const MainBox = styled(Box)({
   display: "flex",
   borderRadius: "10px",
   wordBreak: "break-word",
+  marginTop: "15px",
+  marginRight: "25px",
 });
 
-// const SecondMainBox = styled(Box)({
-//   background:"#FFFFFF",
-//   maxWidth: "30%",
-//   marginLeft: "auto",
-//   padding: "5px",
-//   width: "fit-content",
-//   display: "flex",
-//   borderRadius: "10px",
-//   wordBreak: "break-word",
-// });
-const SecondMainBox = styled(Box)`
-    background: #81d4fa;
-    padding: 5px;
-    max-width: 60%;
-    width: fit-content;
-    display: flex;
-    border-radius: 10px;
-    word-break: break-word;
-`;
+const SecondMainBox = styled(Box)({
+  background: "#607d8b",
+  padding: "5px",
+  maxWidth: "60%",
+  width: "fit-content",
+  display: "flex",
+  borderRadius: "10px",
+  wordBreak: "break-word",
+  marginTop: "15px",
+  marginLeft: "25px",
+});
 
 const MessageText = styled(Typography)({
   fontSize: "14px",
@@ -41,10 +35,11 @@ const MessageText = styled(Typography)({
 });
 
 const TimeText = styled(Typography)({
-  fontSize: "10px",
-  color: "#919191",
+  fontSize: "12px",
+  color: "#212121",
   marginTop: "6px",
   wordBreak: "keep-all",
+
 });
 function ShowUserMessage({ data }) {
   const { loginuser } = useContext(AccountContex);

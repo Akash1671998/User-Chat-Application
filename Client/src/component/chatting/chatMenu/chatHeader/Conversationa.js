@@ -13,6 +13,7 @@ function Conversations({text}) {
   const Component = styled(Box)({
     overflow: "overlay",
     height: "81vh",
+    background: "#546e7a",
   });
 
   useEffect(() => {

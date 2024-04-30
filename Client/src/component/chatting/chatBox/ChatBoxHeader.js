@@ -20,7 +20,7 @@ function ChatBoxHeader({ person }) {
 
   const Header = styled(Box)({
     height: "44px",
-    background: "#ededed",
+    background: "#546e7a",
     display: "flex",
     padding: "8px 16px",
     alignItems: "center",

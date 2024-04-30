@@ -7,10 +7,9 @@ import { AccountContex } from "../../../contex";
 import { UserMessage, getUserMessage } from "../../../service/api";
 import ShowUserMessage from "./ShowMessage";
 
-const MainBox = styled(Box)`
-  background-image: url(${""});
-  background-size: 40%;
-`;
+const MainBox = styled(Box)({
+  background:'#bdbdbd'
+})
 const Component = styled(Box)`
   height: 80vh;
   overflow-y: scroll;
