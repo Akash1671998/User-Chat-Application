@@ -55,3 +55,13 @@ export const getUserMessage = async (data) => {
     console.log("Error", error);
   }
 };
+
+
+export const UploadFile = async (data) => {
+  console.log(">>>>>>>>>>>>>>>>",data)
+  try {
+    let response = await axios.post(`${URL}/file/upload`, data);
+  } catch (error) {
+    console.log("Error Uploading file ", error.message);
+  }
+};

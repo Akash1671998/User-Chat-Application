@@ -1,10 +1,12 @@
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import { Box } from "@mui/material";
+import { Box, formControlClasses } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MicIcon from "@mui/icons-material/Mic";
 import styled from "@emotion/styled";
 import InputBase from "@mui/material/InputBase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SendIcon from "@mui/icons-material/Send";
+import { UploadFile } from "../../../service/api";
 
 const MainBox = styled(Box)({
   height: "55px",
@@ -35,22 +37,61 @@ const InputField = styled(({ ...other }) => <InputBase {...other} />)({
 
 const AttachFile = styled(AttachFileIcon)({
   transform: "rotate(40deg)",
+  color: "#2979ff",
+  fontSize: "30px",
 });
 
-function ChatBoxFooter({KeyPress,textmessage,setTextMessage}) {
+const Send = styled(SendIcon)({
+  color: "#2979ff",
+  fontSize: "30px",
+});
 
-
+function ChatBoxFooter({
+  KeyPress,
+  textmessage,
+  setTextMessage,
+  file,
+  setFile,
+}) {
   const handleMessage = (e) => {
     setTextMessage(e.target.value);
+  };
+
+  const handlefileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setTextMessage(selectedFile.name);
+    }
+  };
+
+  const getImage = async () => {
+    if (file) {
+      console.log("filennnnnnnnnnnnnnn", file);
+      console.log("filenameeeeeeeeeeeeeeee", file.name);
+      const data = new FormData();
+      data.append("name", file.name);
+      data.append("file", file);
+      await UploadFile(data);
+      setTextMessage("");
+    }
   };
 
   return (
     <>
       <MainBox>
         <EmojiEmotionsIcon />
-        <AttachFile />
+        <label htmlFor="fileinput">
+          <AttachFile />
+        </label>
+        <input
+          type="file"
+          id="fileinput"
+          style={{ display: "none" }}
+          onChange={(e) => handlefileChange(e)}
+        />
         <Search>
-        <InputField
+          <InputField
             placeholder="Type a message"
             id="message"
             value={textmessage}
@@ -59,6 +100,7 @@ function ChatBoxFooter({KeyPress,textmessage,setTextMessage}) {
           />
         </Search>
         <MicIcon />
+        <Send onClick={() => getImage()} />
       </MainBox>
     </>
   );

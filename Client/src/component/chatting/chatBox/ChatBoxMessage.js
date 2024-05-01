@@ -20,6 +20,7 @@ function ChatBoxMessage({ person, conversesion }) {
   const [textmessage, setTextMessage] = useState("");
   const [showMessage, setShowMessage] = useState([]);
   const [mesagestatus,setMessageStatus]=useState(false)
+  const [file,setFile]=useState([]);
 
   const KeyPress = async (e) => {
     let code = e.key || e.which;
@@ -27,7 +28,7 @@ function ChatBoxMessage({ person, conversesion }) {
       let newMessage = {
         senderId: loginuser.sub,
         receiverId: person.sub,
-        conversationId: conversesion._id,
+        conversationId: conversesion?._id,
         textmessage: textmessage,
       };
       const data = await UserMessage(newMessage);
@@ -38,8 +39,8 @@ function ChatBoxMessage({ person, conversesion }) {
 
   useEffect(() => {
     const getMessage = async () => {
-      if (conversesion && conversesion._id) {
-        let Id = conversesion._id;
+      if (conversesion && conversesion?._id) {
+        let Id = conversesion?._id;
         try {
           let data = await getUserMessage(Id);
           setShowMessage(data);
@@ -49,7 +50,7 @@ function ChatBoxMessage({ person, conversesion }) {
       }
     };
     getMessage();
-  }, [person.sub, conversesion._id,mesagestatus]);
+  }, [person?.sub, conversesion?._id,mesagestatus]);
 
   return (
     <>
@@ -57,7 +58,6 @@ function ChatBoxMessage({ person, conversesion }) {
         <Component>
           {showMessage &&
             showMessage.map((data) => {
-              console.log(data);
               return <ShowUserMessage key={data.id} data={data} />;
             })}
         </Component>
@@ -65,6 +65,8 @@ function ChatBoxMessage({ person, conversesion }) {
           KeyPress={KeyPress}
           textmessage={textmessage}
           setTextMessage={setTextMessage}
+          file={file}
+          setFile={setFile}
         />
       </MainBox>
     </>
