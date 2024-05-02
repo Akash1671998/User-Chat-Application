@@ -1,12 +1,11 @@
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import { Box, formControlClasses } from "@mui/material";
+import { Box, IconButton, formControlClasses } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MicIcon from "@mui/icons-material/Mic";
 import styled from "@emotion/styled";
 import InputBase from "@mui/material/InputBase";
 import { useEffect, useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
-import { UploadFile } from "../../../service/api";
 
 const MainBox = styled(Box)({
   height: "55px",
@@ -53,6 +52,7 @@ function ChatBoxFooter({
   file,
   setFile,
   setImages,
+  handleSendMessage
 }) {
   const handleMessage = (e) => {
     setTextMessage(e.target.value);
@@ -62,21 +62,11 @@ function ChatBoxFooter({
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setTextMessage(selectedFile.name);
+      // setTextMessage(selectedFile.name);
     }
   };
 
-  const getImage = async () => {
-    if (file) {
-      const data = new FormData();
-      data.append("name", file.name);
-      data.append("file", file);
-      let imageData = await UploadFile(data);
-      setImages(imageData);
-      setTextMessage("");
-    }
-  };
-
+  
   return (
     <>
       <MainBox>
@@ -100,7 +90,9 @@ function ChatBoxFooter({
           />
         </Search>
         <MicIcon />
-        <Send onClick={() => getImage()} />
+        <IconButton  onClick={()=>handleSendMessage()}>
+         <Send  />
+         </IconButton>
       </MainBox>
     </>
   );

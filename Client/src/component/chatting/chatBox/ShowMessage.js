@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import FormateDate from "./FormateDate/FormateDate";
 import { useContext } from "react";
 import { AccountContex } from "../../../contex";
+import GetAppIcon from '@mui/icons-material/GetApp';
 
 const MainBox = styled(Box)({
   background: "#26a69a",
@@ -41,7 +42,7 @@ const TimeText = styled(Typography)({
   wordBreak: "keep-all",
 
 });
-function ShowUserMessage({ data }) {
+function ShowUserMessage({ data, fileNameLink }) {
   const { loginuser } = useContext(AccountContex);
   let LogUserId = loginuser?.sub;
 
@@ -51,8 +52,11 @@ function ShowUserMessage({ data }) {
     <>
       {LogUserId === data.senderId ? (
         <MainBox>
-          <MessageText>{data.textmessage}</MessageText>
-          <TimeText>{FormateDate(messageDate)}</TimeText>
+          {fileNameLink && <ImageMessage data={fileNameLink} /> }
+
+          
+          {data && <TextMessage data={data} />
+          }
         </MainBox>
       ) : (
         <SecondMainBox>
@@ -61,7 +65,31 @@ function ShowUserMessage({ data }) {
         </SecondMainBox>
       )}
     </>
+
   );
 }
 
+const TextMessage = ({ data }) => {
+  return (
+    <>
+      <MessageText>{data.textmessage}</MessageText>
+      <TimeText>{FormateDate(data?.createdAt)}</TimeText>
+    </>
+  )
+
+}
+
+
+const ImageMessage = ({ data }) => {
+  return (
+    <>
+      <Box style={{position:'relative'}}>
+        <img src={data} alt={data.textmessage} style={{ width: 300, height: "100%", objectFit: 'cover' }} />
+        <GetAppIcon style={{position:'absulute'}}/>
+        <TimeText>{FormateDate(data?.createdAt)}</TimeText>
+      </Box>
+    </>
+  )
+
+}
 export default ShowUserMessage;

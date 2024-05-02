@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 // import transparentChat from "../../../images/static/transparentChat.jpg";
 import { useContext, useEffect, useState } from "react";
 import { AccountContex } from "../../../contex";
-import { UserMessage, getUserMessage } from "../../../service/api";
+import { UploadFile, UserMessage, getUserMessage } from "../../../service/api";
 import ShowUserMessage from "./ShowMessage";
 
 const MainBox = styled(Box)({
@@ -20,36 +20,66 @@ function ChatBoxMessage({ person, conversesion }) {
   const [textmessage, setTextMessage] = useState("");
   const [showMessage, setShowMessage] = useState([]);
   const [mesagestatus, setMessageStatus] = useState(false);
+  const [fileNameLink, setFileNameLink] = useState();
   const [file, setFile] = useState([]);
   const [images, setImages] = useState("");
 
   const KeyPress = async (e) => {
     let code = e.key || e.which;
     if (code === "Enter") {
-      let newMessage = {};
-      if (file) {
-        newMessage = {
-          senderId: loginuser.sub,
-          receiverId: person.sub,
-          conversationId: conversesion?._id,
-          type: "file",
-          textmessage: images,
-        };
-      } else {
-        newMessage = {
-          senderId: loginuser.sub,
-          receiverId: person.sub,
-          conversationId: conversesion?._id,
-          type: "text",
-          textmessage: textmessage,
-        };
-      }
-      const data = await UserMessage(newMessage);
-      setTextMessage("");
-      setFile(null);
-      setMessageStatus((prev) => !prev);
+      e.preventDefault();
+      if (textmessage) {
+        handleSendMessage();
+      } 
     }
   };
+
+  const handleSendMessage = ()=>{
+    let newMessage = null;
+    if (textmessage) {
+      newMessage = {
+        senderId: loginuser.sub,
+        receiverId: person.sub,
+        conversationId: conversesion?._id,
+        type: "text",
+        textmessage: textmessage,
+      };
+    } 
+    UserMessage(newMessage);
+    setTextMessage("");
+    setFile([]);
+    setMessageStatus((prev) => !prev);
+  }
+
+  useEffect(()=>{
+    let newMessage = null;
+    newMessage = {
+      senderId: loginuser.sub,
+      receiverId: person.sub,
+      conversationId: conversesion?._id,
+      type: "file",
+      textmessage: images,
+    };
+    if( file && file.length != 0){
+      UserMessage(newMessage);
+      getImage()
+    }
+    setMessageStatus((prev) => !prev);
+  },[file])
+
+  const getImage = async () => {
+    if (file) {
+      const data = new FormData();
+      data.append("name", file.name);
+      data.append("file", file);
+      var fileName = await UploadFile(data);
+      setImages(images);
+      setFileNameLink(fileName);
+      setFile([]);
+    }
+  };
+
+  console.log("images ",images)
   useEffect(() => {
     const getMessage = async () => {
       if (conversesion && conversesion?._id) {
@@ -65,13 +95,14 @@ function ChatBoxMessage({ person, conversesion }) {
     getMessage();
   }, [person?.sub, conversesion?._id, mesagestatus]);
 
+  console.log("textmessage",textmessage)
   return (
     <>
       <MainBox>
         <Component>
           {showMessage &&
             showMessage.map((data) => {
-              return <ShowUserMessage key={data.id} data={data} />;
+              return <ShowUserMessage key={data.id} data={data} fileNameLink={fileNameLink}  />;
             })}
         </Component>
         <ChatBoxFooter
@@ -81,6 +112,7 @@ function ChatBoxMessage({ person, conversesion }) {
           file={file}
           setFile={setFile}
           setImages={setImages}
+          handleSendMessage={handleSendMessage}
         />
       </MainBox>
     </>
