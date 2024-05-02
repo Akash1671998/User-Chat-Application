@@ -52,6 +52,7 @@ function ChatBoxFooter({
   setTextMessage,
   file,
   setFile,
+  setImages,
 }) {
   const handleMessage = (e) => {
     setTextMessage(e.target.value);
@@ -67,12 +68,11 @@ function ChatBoxFooter({
 
   const getImage = async () => {
     if (file) {
-      console.log("filennnnnnnnnnnnnnn", file);
-      console.log("filenameeeeeeeeeeeeeeee", file.name);
       const data = new FormData();
       data.append("name", file.name);
       data.append("file", file);
-      await UploadFile(data);
+      let imageData = await UploadFile(data);
+      setImages(imageData);
       setTextMessage("");
     }
   };

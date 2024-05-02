@@ -32,12 +32,10 @@ export const getConversationMessage = async (data) => {
   try {
     let response = await axios.post(`${URL}/conversation/get`, data);
     return response.data.data;
-   
   } catch (error) {
     console.log("Error", error);
   }
 };
-
 
 export const UserMessage = async (data) => {
   try {
@@ -56,11 +54,10 @@ export const getUserMessage = async (data) => {
   }
 };
 
-
 export const UploadFile = async (data) => {
-  console.log(">>>>>>>>>>>>>>>>",data)
   try {
     let response = await axios.post(`${URL}/file/upload`, data);
+    return response.data.data;
   } catch (error) {
     console.log("Error Uploading file ", error.message);
   }

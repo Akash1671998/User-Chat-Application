@@ -7,8 +7,8 @@ const UserNewMessage = async (request, response) => {
       conversationId: request.body.conversationId,
       senderId: request.body.senderId,
       receiverId: request.body.receiverId,
-      textmessage: request.body.textmessage,
       type: request.body.type,
+      textmessage: request.body.textmessage,
     });
 
     let ConversationMessage = await ChatConversation.findByIdAndUpdate(

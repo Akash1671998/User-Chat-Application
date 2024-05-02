@@ -4,6 +4,7 @@ const { ConversationMessage,getConversationMessage } = require('../controller/ne
 const {UserNewMessage,getUserMessage} = require('../controller/messageController');
 const {fileUpload}=require('../controller/fileController');
 const uploads= require('../Middleware/upload');
+const {getFile}=require('../controller/fileController');
 
 const route = express.Router();
 
@@ -17,6 +18,7 @@ route.post('/message/add', UserNewMessage);
 route.get('/message/get/:id', getUserMessage);
 
 route.post('/file/upload', uploads.single('file'), fileUpload);
+route.get('/file/:filename',getFile);
 
 
 

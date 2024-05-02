@@ -8,8 +8,8 @@ import { UserMessage, getUserMessage } from "../../../service/api";
 import ShowUserMessage from "./ShowMessage";
 
 const MainBox = styled(Box)({
-  background:'#bdbdbd'
-})
+  background: "#bdbdbd",
+});
 const Component = styled(Box)`
   height: 80vh;
   overflow-y: scroll;
@@ -19,24 +19,37 @@ function ChatBoxMessage({ person, conversesion }) {
   const { loginuser } = useContext(AccountContex);
   const [textmessage, setTextMessage] = useState("");
   const [showMessage, setShowMessage] = useState([]);
-  const [mesagestatus,setMessageStatus]=useState(false)
-  const [file,setFile]=useState([]);
+  const [mesagestatus, setMessageStatus] = useState(false);
+  const [file, setFile] = useState([]);
+  const [images, setImages] = useState("");
 
   const KeyPress = async (e) => {
     let code = e.key || e.which;
     if (code === "Enter") {
-      let newMessage = {
-        senderId: loginuser.sub,
-        receiverId: person.sub,
-        conversationId: conversesion?._id,
-        textmessage: textmessage,
-      };
+      let newMessage = {};
+      if (file) {
+        newMessage = {
+          senderId: loginuser.sub,
+          receiverId: person.sub,
+          conversationId: conversesion?._id,
+          type: "file",
+          textmessage: images,
+        };
+      } else {
+        newMessage = {
+          senderId: loginuser.sub,
+          receiverId: person.sub,
+          conversationId: conversesion?._id,
+          type: "text",
+          textmessage: textmessage,
+        };
+      }
       const data = await UserMessage(newMessage);
       setTextMessage("");
-      setMessageStatus(prev=>!prev)
+      setFile(null);
+      setMessageStatus((prev) => !prev);
     }
   };
-
   useEffect(() => {
     const getMessage = async () => {
       if (conversesion && conversesion?._id) {
@@ -50,7 +63,7 @@ function ChatBoxMessage({ person, conversesion }) {
       }
     };
     getMessage();
-  }, [person?.sub, conversesion?._id,mesagestatus]);
+  }, [person?.sub, conversesion?._id, mesagestatus]);
 
   return (
     <>
@@ -67,6 +80,7 @@ function ChatBoxMessage({ person, conversesion }) {
           setTextMessage={setTextMessage}
           file={file}
           setFile={setFile}
+          setImages={setImages}
         />
       </MainBox>
     </>
