@@ -30,11 +30,11 @@ function ChatBoxMessage({ person, conversesion }) {
       e.preventDefault();
       if (textmessage) {
         handleSendMessage();
-      } 
+      }
     }
   };
 
-  const handleSendMessage = ()=>{
+  const handleSendMessage = () => {
     let newMessage = null;
     if (textmessage) {
       newMessage = {
@@ -44,14 +44,14 @@ function ChatBoxMessage({ person, conversesion }) {
         type: "text",
         textmessage: textmessage,
       };
-    } 
+    }
     UserMessage(newMessage);
     setTextMessage("");
     setFile([]);
     setMessageStatus((prev) => !prev);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     let newMessage = null;
     newMessage = {
       senderId: loginuser.sub,
@@ -60,12 +60,12 @@ function ChatBoxMessage({ person, conversesion }) {
       type: "file",
       textmessage: images,
     };
-    if( file && file.length != 0){
+    if (file && file.length != 0) {
       UserMessage(newMessage);
-      getImage()
+      getImage();
     }
     setMessageStatus((prev) => !prev);
-  },[file])
+  }, [file]);
 
   const getImage = async () => {
     if (file) {
@@ -73,13 +73,12 @@ function ChatBoxMessage({ person, conversesion }) {
       data.append("name", file.name);
       data.append("file", file);
       var fileName = await UploadFile(data);
-      setImages(images);
+      setImages(fileName);
       setFileNameLink(fileName);
       setFile([]);
     }
   };
 
-  console.log("images ",images)
   useEffect(() => {
     const getMessage = async () => {
       if (conversesion && conversesion?._id) {
@@ -95,14 +94,20 @@ function ChatBoxMessage({ person, conversesion }) {
     getMessage();
   }, [person?.sub, conversesion?._id, mesagestatus]);
 
-  console.log("textmessage",textmessage)
+  console.log("textmessage", textmessage);
   return (
     <>
       <MainBox>
         <Component>
           {showMessage &&
             showMessage.map((data) => {
-              return <ShowUserMessage key={data.id} data={data} fileNameLink={fileNameLink}  />;
+              return (
+                <ShowUserMessage
+                  key={data.id}
+                  data={data}
+                  fileNameLink={fileNameLink}
+                />
+              );
             })}
         </Component>
         <ChatBoxFooter

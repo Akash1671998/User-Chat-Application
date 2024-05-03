@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import FormateDate from "./FormateDate/FormateDate";
 import { useContext } from "react";
 import { AccountContex } from "../../../contex";
-import GetAppIcon from '@mui/icons-material/GetApp';
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 const MainBox = styled(Box)({
   background: "#26a69a",
@@ -40,7 +40,6 @@ const TimeText = styled(Typography)({
   color: "#212121",
   marginTop: "6px",
   wordBreak: "keep-all",
-
 });
 function ShowUserMessage({ data, fileNameLink }) {
   const { loginuser } = useContext(AccountContex);
@@ -52,11 +51,12 @@ function ShowUserMessage({ data, fileNameLink }) {
     <>
       {LogUserId === data.senderId ? (
         <MainBox>
-          {fileNameLink && <ImageMessage data={fileNameLink} /> }
-
-          
-          {data && <TextMessage data={data} />
-          }
+          {/* {data ? <TextMessage data={data} /> :   <ImageMessage data={fileNameLink}/>} */}
+          {data.type === "text" ? (
+            <TextMessage data={data} />
+          ) : (
+            <ImageMessage data={fileNameLink} />
+          )}
         </MainBox>
       ) : (
         <SecondMainBox>
@@ -65,7 +65,6 @@ function ShowUserMessage({ data, fileNameLink }) {
         </SecondMainBox>
       )}
     </>
-
   );
 }
 
@@ -75,21 +74,22 @@ const TextMessage = ({ data }) => {
       <MessageText>{data.textmessage}</MessageText>
       <TimeText>{FormateDate(data?.createdAt)}</TimeText>
     </>
-  )
-
-}
-
+  );
+};
 
 const ImageMessage = ({ data }) => {
   return (
     <>
-      <Box style={{position:'relative'}}>
-        <img src={data} alt={data.textmessage} style={{ width: 300, height: "100%", objectFit: 'cover' }} />
-        <GetAppIcon style={{position:'absulute'}}/>
+      <Box style={{ position: "relative" }}>
+        <img
+          src={data}
+          alt={data}
+          style={{ width: 300, height: "100%", objectFit: "cover" }}
+        />
+        <GetAppIcon style={{ position: "absulute" }} />
         <TimeText>{FormateDate(data?.createdAt)}</TimeText>
       </Box>
     </>
-  )
-
-}
+  );
+};
 export default ShowUserMessage;
