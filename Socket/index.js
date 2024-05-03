@@ -1,8 +1,5 @@
-const {Server} = require("socket.io")
-
-
-
-const io = new Server(9000,{
+import {Server} from "socket.io";
+const io = new Server(8070,{
     cors:{
         origin:'http://localhost:3001'
     }
@@ -14,7 +11,7 @@ const addUser = (userData, socketId) => {
 }
 
 io.on('connection',(socket)=>{
-    console.log("user Connected Successfully");
+    console.log("user Connected Successfullyy");
     socket.on("addUser", userData => {
         addUser(userData, socket.id);
         io.emit("getUsers", users);

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import styled from "@emotion/styled";
@@ -17,7 +17,7 @@ function ChatSearch({ text, setText }) {
 
   const SecondBox = styled(Box)({
     display: "flex",
-    alignItem: "center",
+    alignItems: "center",
     backgroundColor: "#f0f2f5",
     position: "relative",
     margin: "0 13px",
@@ -26,7 +26,7 @@ function ChatSearch({ text, setText }) {
   });
 
   const SearchIcondBox = styled(Box)({
-    position: "obsolute",
+    position: "absolute",
     height: "100%",
     padding: "12px 7px",
     color: "#919191",
@@ -42,39 +42,37 @@ function ChatSearch({ text, setText }) {
 
   const Closed = styled(Box)({
     display: "flex",
-    alignItem: "center",
+    alignItems: "center",
     position: "relative",
     color: "red",
   });
+
   const handleSearch = (e) => {
     const value = e.target.value;
-    e.target.name = value;
     setText(value);
   };
 
-  const hanleClear = () => {
+  const handleClear = () => {
     setText("");
   };
 
   return (
-    <>
-      <MainBox>
-        <SecondBox>
-          <SearchIcondBox>
-            <SearchIcon />
-          </SearchIcondBox>
-          <InputeField
-            placeholder="Search or start new chat"
-            value={text}
-            name="search"
-            onChange={(e) => handleSearch(e)}
-          />
-        </SecondBox>
-        <Closed>
-          {text && <ClearIcon fontSize="small" onClick={hanleClear} />}
-        </Closed>
-      </MainBox>
-    </>
+    <MainBox>
+      <SecondBox>
+        <SearchIcondBox>
+          <SearchIcon />
+        </SearchIcondBox>
+        <InputeField
+          placeholder="Search or start new chat"
+          value={text}
+          onChange={handleSearch}
+        />
+      </SecondBox>
+      <Closed>
+        {text && <ClearIcon fontSize="small" onClick={handleClear} />}
+      </Closed>
+    </MainBox>
   );
 }
+
 export default ChatSearch;

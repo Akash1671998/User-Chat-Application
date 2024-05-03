@@ -10,6 +10,7 @@ function Conversations({ text }) {
   const { loginuser, socket, ActiveUser, setActiveUser } =
     useContext(AccountContex);
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   const Component = styled(Box)({
     overflow: "overlay",
@@ -20,34 +21,44 @@ function Conversations({ text }) {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await getChatUser();
-        let finterData = response.filter((item) =>
-          item.name.toLowerCase().includes(text.toLowerCase())
-        );
-        setUsers(finterData);
+        const response = await getChatUser(); 
+        setUsers(response);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
 
     getUsers();
-  }, [text]);
+  }, []);
 
-//   useEffect(() => {
-//     socket.current.emit('addUser', loginuser);
-//     socket.current.on("getUsers", users => {
-//       setActiveUser(users);
-//     })
-// }, [loginuser])
+  useEffect(() => {
+    const filterUsers = () => {
+      let filterData = users.filter((item) =>
+        item.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredUsers(filterData);
+    };
+
+    filterUsers();
+  }, [text, users]);
+
+
+    useEffect(() => {
+    socket.current.emit('addUser', loginuser);
+    socket.current.on("getUsers", users => {
+      setActiveUser(users);
+    })
+}, [loginuser])
 
   return (
     <Component>
-      {users && users.map(
+      {filteredUsers && filteredUsers.map(
         (user) =>
           user.sub !== loginuser.sub && (
             <>
-              <ChatConvesationUser user={user} />
+              <ChatConvesationUser key={user.sub} user={user} />
               <Divider
+                key={user.sub + "_divider"}
                 style={{
                   margin: "0px 0px 0px 70px",
                   background: "#e9edef",

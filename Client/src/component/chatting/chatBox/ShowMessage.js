@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import FormateDate, { DownloadFile } from "./FormateDate/FormateDate";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react"; // Added useRef and useEffect
 import { AccountContex } from "../../../contex";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-
 
 const MainBox = styled(Box)({
   background: "#26a69a",
@@ -43,11 +42,15 @@ const TimeText = styled(Typography)({
   marginTop: "6px",
   wordBreak: "keep-all",
 });
+
 function ShowUserMessage({ data, fileNameLink }) {
   const { loginuser } = useContext(AccountContex);
   let LogUserId = loginuser?.sub;
+  const messageEndRef = useRef(null);
 
-  
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [data]);
 
   return (
     <>
@@ -68,6 +71,7 @@ function ShowUserMessage({ data, fileNameLink }) {
           )}
         </SecondMainBox>
       )}
+      <div ref={messageEndRef} /> 
     </>
   );
 }
@@ -101,7 +105,7 @@ const ImageMessage = ({ linkData, data }) => {
         )}
         <TimeText style={{ position: "absolute", bottom: 0, right: 0 }}>
           <GetAppIcon
-          onClick={(e)=>DownloadFile(e,linkData)}
+            onClick={(e) => DownloadFile(e, linkData)}
             fontSize="small"
             style={{
               marginRight: 10,
@@ -115,4 +119,5 @@ const ImageMessage = ({ linkData, data }) => {
     </>
   );
 };
+
 export default ShowUserMessage;
