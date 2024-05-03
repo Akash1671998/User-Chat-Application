@@ -62,3 +62,6 @@ export const UploadFile = async (data) => {
     console.log("Error Uploading file ", error.message);
   }
 };
+
+
+

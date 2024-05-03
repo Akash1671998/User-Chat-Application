@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
-import FormateDate from "./FormateDate/FormateDate";
+import FormateDate, { DownloadFile } from "./FormateDate/FormateDate";
 import { useContext } from "react";
 import { AccountContex } from "../../../contex";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+
 
 const MainBox = styled(Box)({
   background: "#26a69a",
@@ -45,23 +47,25 @@ function ShowUserMessage({ data, fileNameLink }) {
   const { loginuser } = useContext(AccountContex);
   let LogUserId = loginuser?.sub;
 
-  const messageDate = data?.createdAt;
+  
 
   return (
     <>
       {LogUserId === data.senderId ? (
         <MainBox>
-          {/* {data ? <TextMessage data={data} /> :   <ImageMessage data={fileNameLink}/>} */}
           {data.type === "text" ? (
             <TextMessage data={data} />
           ) : (
-            <ImageMessage data={fileNameLink} />
+            <ImageMessage linkData={fileNameLink} data={data} />
           )}
         </MainBox>
       ) : (
         <SecondMainBox>
-          <MessageText>{data.textmessage}</MessageText>
-          <TimeText>{FormateDate(messageDate)}</TimeText>
+          {data.type === "text" ? (
+            <TextMessage data={data} />
+          ) : (
+            <ImageMessage linkData={fileNameLink} data={data} />
+          )}
         </SecondMainBox>
       )}
     </>
@@ -77,17 +81,36 @@ const TextMessage = ({ data }) => {
   );
 };
 
-const ImageMessage = ({ data }) => {
+const ImageMessage = ({ linkData, data }) => {
   return (
     <>
       <Box style={{ position: "relative" }}>
-        <img
-          src={data}
-          alt={data}
-          style={{ width: 300, height: "100%", objectFit: "cover" }}
-        />
-        <GetAppIcon style={{ position: "absulute" }} />
-        <TimeText>{FormateDate(data?.createdAt)}</TimeText>
+        {linkData && linkData.endsWith(".pdf") ? (
+          <Box style={{ display: "flex" }}>
+            <img src={PictureAsPdfIcon} alt="pdf-icon" style={{ width: 80 }} />
+            <Typography style={{ fontSize: 14 }}>
+              {linkData.split("/").pop()}
+            </Typography>
+          </Box>
+        ) : (
+          <img
+            src={linkData}
+            alt={linkData}
+            style={{ width: 300, height: "100%", objectFit: "cover" }}
+          />
+        )}
+        <TimeText style={{ position: "absolute", bottom: 0, right: 0 }}>
+          <GetAppIcon
+          onClick={(e)=>DownloadFile(e,linkData)}
+            fontSize="small"
+            style={{
+              marginRight: 10,
+              border: "1px solid grey",
+              borderRadius: "50%",
+            }}
+          />
+          {FormateDate(data?.createdAt)}
+        </TimeText>
       </Box>
     </>
   );

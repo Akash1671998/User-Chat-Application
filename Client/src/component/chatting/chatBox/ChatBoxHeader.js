@@ -7,7 +7,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatBoxMoreMenu from "./ChatBoxMoreMenu";
 
 function ChatBoxHeader({ person }) {
-  const { loginuser } = useContext(AccountContex);
+  const { loginuser, ActiveUser } = useContext(AccountContex);
   const [userStatus, setUserStatus] = useState("Offline");
 
   useEffect(() => {
@@ -61,7 +61,11 @@ function ChatBoxHeader({ person }) {
         <Image src={person.picture} alt="dp" />
         <Box>
           <Name>{person.name}</Name>
-          <UserStatus>{userStatus}</UserStatus>
+          <UserStatus>
+            {ActiveUser?.find((user) => user.sub === person.sub)
+              ? "Online"
+              : "Offline"}
+          </UserStatus>
         </Box>
         <RightContainer>
           <SearchIcon />

@@ -32,7 +32,6 @@ const fileUpload = async (request, response) => {
 };
 
 const getFile = async (request,response) => {
-  console.log("idddddddddddddddddddd",request.params.name)
   try{
     const file = await gfs.files.findOne({ filename: request.params.name });
     // const readStream = gfs.createReadStream(file.filename);

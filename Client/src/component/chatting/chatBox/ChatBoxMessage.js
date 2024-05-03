@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import ChatBoxFooter from "./ChatBoxFooter";
 import { Box } from "@mui/material";
 // import transparentChat from "../../../images/static/transparentChat.jpg";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AccountContex } from "../../../contex";
 import { UploadFile, UserMessage, getUserMessage } from "../../../service/api";
 import ShowUserMessage from "./ShowMessage";
@@ -94,11 +94,14 @@ function ChatBoxMessage({ person, conversesion }) {
     getMessage();
   }, [person?.sub, conversesion?._id, mesagestatus]);
 
-  console.log("textmessage", textmessage);
+  let scroll = useRef();
+useEffect(()=>{
+  scroll.current?.scrollIntoView({Transition:'smooth'});
+},[showMessage])
   return (
     <>
       <MainBox>
-        <Component>
+        <Component ref={scroll}>
           {showMessage &&
             showMessage.map((data) => {
               return (
