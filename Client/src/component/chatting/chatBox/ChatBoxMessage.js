@@ -16,7 +16,7 @@ const Component = styled(Box)`
 `;
 
 function ChatBoxMessage({ person, conversesion }) {
-  const { loginuser } = useContext(AccountContex);
+  const { loginuser,socket } = useContext(AccountContex);
   const [textmessage, setTextMessage] = useState("");
   const [showMessage, setShowMessage] = useState([]);
   const [mesagestatus, setMessageStatus] = useState(false);
@@ -33,6 +33,21 @@ function ChatBoxMessage({ person, conversesion }) {
       }
     }
   };
+  const [incomingMessage, setIncomingMessage] = useState(null);
+  useEffect(() => {
+    socket.current.on('getMessage', data => {
+        setIncomingMessage({
+            ...data,
+            createdAt: Date.now()
+        })
+    })
+}, []);
+
+useEffect(() => {
+  incomingMessage && conversesion?.members?.includes(incomingMessage.senderId) && 
+  setShowMessage((prev) => [...prev, incomingMessage]);
+  
+}, [incomingMessage, conversesion]);
 
   const handleSendMessage = () => {
     let newMessage = null;
@@ -45,6 +60,8 @@ function ChatBoxMessage({ person, conversesion }) {
         textmessage: textmessage,
       };
     }
+    socket.current.emit('sendMessage', newMessage);
+
     UserMessage(newMessage);
     setTextMessage("");
     setFile([]);
