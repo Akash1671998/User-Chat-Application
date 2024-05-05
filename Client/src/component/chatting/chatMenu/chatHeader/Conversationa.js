@@ -5,13 +5,18 @@ import { Box, Divider } from "@mui/material";
 import { useContext } from "react";
 import { AccountContex } from "../../../../contex";
 import styled from "@emotion/styled";
+import { useApplicationContexController,setActiveUser } from "../../../../contex/ApplicationContex";
 
 function Conversations({ text }) {
-  const { loginuser, socket, ActiveUser, setActiveUser } =
+
+  const [controller, dispatch] = useApplicationContexController();
+  const {activeUser,} = controller;
+  const { loginuser, socket, } =
     useContext(AccountContex);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
+  console.log("IIIIIIIIIIIIIIIIIIII",activeUser)
   const Component = styled(Box)({
     overflow: "overlay",
     height: "81vh",
@@ -37,6 +42,7 @@ function Conversations({ text }) {
         item.name.toLowerCase().includes(text.toLowerCase())
       );
       setFilteredUsers(filterData);
+       
     };
 
     filterUsers();
@@ -46,7 +52,7 @@ function Conversations({ text }) {
     useEffect(() => {
     socket.current.emit('addUser', loginuser);
     socket.current.on("getUsers", users => {
-      setActiveUser(users);
+      setActiveUser(dispatch, users);
     })
 }, [loginuser])
 

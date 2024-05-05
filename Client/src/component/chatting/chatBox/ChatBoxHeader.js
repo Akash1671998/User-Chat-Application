@@ -5,8 +5,12 @@ import { AccountContex } from "../../../contex";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatBoxMoreMenu from "./ChatBoxMoreMenu";
+import { useApplicationContexController } from "../../../contex/ApplicationContex";
+
 
 function ChatBoxHeader({ person }) {
+  const [controller, dispatch] = useApplicationContexController();
+  const {activeUser,} = controller;
   const { loginuser, ActiveUser } = useContext(AccountContex);
   const [userStatus, setUserStatus] = useState("Offline");
 
@@ -62,7 +66,7 @@ function ChatBoxHeader({ person }) {
         <Box>
           <Name>{person.name}</Name>
           <UserStatus>
-            {ActiveUser?.find((user) => user.sub === person.sub)
+            {activeUser?.find((user) => user.sub === person.sub)
               ? "Online"
               : "Offline"}
           </UserStatus>
