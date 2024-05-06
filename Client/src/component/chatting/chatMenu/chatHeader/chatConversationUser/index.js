@@ -11,12 +11,11 @@ import { getConversationMessage } from "../../../../../service/api";
 import { useApplicationContexController } from "../../../../../contex/ApplicationContex";
 import FormateDate from "../../../chatBox/FormateDate/FormateDate";
 
-
 const MainBox = styled(Box)`
-    height: 45px;
-    display: flex;
-    padding: 13px 0;
-    cursor: pointer;
+  height: 45px;
+  display: flex;
+  padding: 13px 0;
+  cursor: pointer;
 `;
 
 const Container = styled(Box)({
@@ -24,16 +23,16 @@ const Container = styled(Box)({
 });
 
 const Timestamp = styled(Typography)`
-    font-size: 12px;
-    margin-left: 280px;
-    color: #f3e5f5;
-    margin-right: 20px;
+  font-size: 12px;
+  margin-left: 250px;
+  color: #f3e5f5;
+  margin-right: 20px;
 `;
 
 const Text = styled(Typography)`
-    display: block;
-    color:#f3e5f5;
-    font-size: 14px;
+  display: block;
+  color: #f3e5f5;
+  font-size: 14px;
 `;
 
 const Image = styled("img")({
@@ -76,24 +75,24 @@ function ChatConvesationUser({ user }) {
   return (
     <>
       <MainBox onClick={() => getUser()}>
-        <Box>{<Image src={user.picture} alt="dp" />}</Box>
-
-        <Box styled={{ width: "100%" }}>
+        <Box>
+          <Image src={user.picture} alt="dp" />
+        </Box>
+        <Box style={{ width: "100%" }}>
           <Container>
             <Typography>{user.name}</Typography>
             {currentMessage?.textmessage && (
               <Timestamp>{FormateDate(currentMessage?.timestamps)}</Timestamp>
             )}
           </Container>
-          <Text>
-            {" "}
-            {currentMessage?.textmessage?.includes("localhost")
-              ? "media"
-              : currentMessage.textmessage}
-          </Text>
+          <Box>
+            <Text>
+              {currentMessage?.textmessage?.includes("localhost")
+                ? "media"
+                : currentMessage.textmessage}
+            </Text>
+          </Box>
         </Box>
-
-        <Box></Box>
       </MainBox>
     </>
   );
