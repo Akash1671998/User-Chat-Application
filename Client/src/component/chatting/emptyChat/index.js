@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
-import { emptyChatImage } from "../../../images/image";
+
 import styled from "@emotion/styled";
-import Chat from '../../../images/static/Chat.jpg'
+import  emptyChatImage  from "../../../images/EmptyChat.jpg";
 
 function Emptychat() {
   const MainBox = styled(Box)({
@@ -28,7 +28,7 @@ function Emptychat() {
     <>
       <MainBox>
         <Imagebox>
-          <Image src={Chat} alt="image" />
+          <Image src={emptyChatImage} alt="image"  />
           <Typography>Web Chat App </Typography>
           <Typography>Send and Received Message </Typography>
           <StyleDivider/>

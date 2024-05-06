@@ -11,13 +11,13 @@ function Chatting() {
   const {person}=useContext(AccountContex);
   const DialogStyle = {
     height: "90%",
-    maxHeight: "100%",
+    maxHeight: "90%",
     width: "100%",
     maxWidth: "100%",
-    margin: "20px",
+    margin: "10px",
     boxShadow: "none",
     overflow: "none",
-    border: "1px solid black",
+    border: "1px solid gray",
     borderRadius: "0px",
   };
 
@@ -26,13 +26,13 @@ function Chatting() {
   });
 
   const LeftBox = styled(Box)({
-    minWidth: 470,
+    minWidth: 70,
   });
 
   const RighttBox = styled(Box)({
-    width: "70%",
+    width: "80%",
     minWidth: 300,
-    height: "100%",
+    height: "70%",
     borderLeft: "1px solid rbga(0,0,0,0.14)",
   });
   return (

@@ -12,7 +12,7 @@ const MainBox = styled(Box)({
   background: "#bdbdbd",
 });
 const Component = styled(Box)`
-  height: 80vh;
+  height: 75vh;
   overflow-y: scroll;
 `;
 
