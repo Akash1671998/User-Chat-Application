@@ -10,13 +10,11 @@ import { useApplicationContexController,setActiveUser } from "../../../../contex
 function Conversations({ text }) {
 
   const [controller, dispatch] = useApplicationContexController();
-  const {activeUser,} = controller;
-  const { loginuser, socket, } =
-    useContext(AccountContex);
+  const {activeUser,mesagestatus} = controller;
+  const { loginuser, socket, } =useContext(AccountContex);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
-  console.log("IIIIIIIIIIIIIIIIIIII",activeUser)
   const Component = styled(Box)({
     overflow: "overlay",
     height: "81vh",

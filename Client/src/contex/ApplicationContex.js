@@ -14,6 +14,9 @@ function reducer(state, action) {
         case "ACTIVEUSER": {
             return { ...state, activeUser: action.value };
         }
+        case "MESSAGESTATUS": {
+            return { ...state, mesagestatus: action.value };
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         }
@@ -25,7 +28,8 @@ function Provider({ children }) {
     const initialState = {
         miniSidenav: false,
         openSideNav: true,
-        activeUser: []
+        activeUser: [],
+        mesagestatus:false,
     };
     const [controller, dispatch] = useReducer(reducer, initialState);
     const value = useMemo(() => [controller, dispatch], [controller, dispatch]);
@@ -57,11 +61,16 @@ const setActiveUser = (dispatch, value) => {
     dispatch({ type: "ACTIVEUSER", value });
 };
 
+const setMessageStatus = (dispatch, value) => {
+    dispatch({ type: "MESSAGESTATUS", value });
+};
+
 
 export {
     Provider,
     useApplicationContexController,
     setMiniSidenav,
     setOpenSideNav,
-    setActiveUser
+    setActiveUser,
+    setMessageStatus,
 };

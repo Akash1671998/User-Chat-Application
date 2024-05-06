@@ -6,6 +6,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AccountContex } from "../../../contex";
 import { UploadFile, UserMessage, getUserMessage } from "../../../service/api";
 import ShowUserMessage from "./ShowMessage";
+import { useApplicationContexController,setMessageStatus } from "../../../contex/ApplicationContex";
 
 const MainBox = styled(Box)({
   background: "#bdbdbd",
@@ -16,10 +17,12 @@ const Component = styled(Box)`
 `;
 
 function ChatBoxMessage({ person, conversesion }) {
+  const [controller, dispatch] = useApplicationContexController();
+  const {activeUser,mesagestatus} = controller;
   const { loginuser,socket } = useContext(AccountContex);
   const [textmessage, setTextMessage] = useState("");
   const [showMessage, setShowMessage] = useState([]);
-  const [mesagestatus, setMessageStatus] = useState(false);
+  // const [mesagestatus, setMessageStatus] = useState(false);
   const [fileNameLink, setFileNameLink] = useState();
   const [file, setFile] = useState([]);
   const [images, setImages] = useState("");
@@ -65,7 +68,7 @@ useEffect(() => {
     UserMessage(newMessage);
     setTextMessage("");
     setFile([]);
-    setMessageStatus((prev) => !prev);
+    setMessageStatus(dispatch,(prev) => !prev);
   };
 
   useEffect(() => {
