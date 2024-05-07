@@ -10,6 +10,7 @@ import { AccountContex } from "../../../../../contex";
 import { getConversationMessage } from "../../../../../service/api";
 import { useApplicationContexController } from "../../../../../contex/ApplicationContex";
 import FormateDate from "../../../chatBox/FormateDate/FormateDate";
+import Profile from "../../../../../images/Profile.png";
 
 const MainBox = styled(Box)`
   height: 45px;
@@ -76,7 +77,11 @@ function ChatConvesationUser({ user }) {
     <>
       <MainBox onClick={() => getUser()}>
         <Box>
-          <Image src={user.picture} alt="dp" />
+          {user.picture ? (
+            <Image src={user.picture} alt="dp" height={100} />
+          ) : (
+            <Image src={Profile} alt="dp" height={100} />
+          )}
         </Box>
         <Box style={{ width: "100%" }}>
           <Container>

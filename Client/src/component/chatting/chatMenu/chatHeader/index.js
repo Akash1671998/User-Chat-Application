@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { AccountContex } from "../../../../contex";
 import styled from "@emotion/styled";
@@ -49,6 +49,7 @@ function ChatHeader() {
   return (
     <>
       <MainBox>
+        <Tooltip title={loginuser.name}>
         <Image
           src={loginuser.picture}
           alt="dp"
@@ -57,6 +58,7 @@ function ChatHeader() {
           style={{ borderRadius: "50%" }}
           onClick={()=>handleOpenBox()}
         />
+        </Tooltip>
         <IconBox>
           <LoopIcon size="small" color="action" />
           <ChatIcon size="small" color="action" />
